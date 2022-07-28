@@ -38,6 +38,10 @@ const teamSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Please add the current place of the team']
     },
+    currentPoints: {
+        type: Number,
+        required: [true, 'Please add the current points of the team']
+    },
 },
 {
     timestamps: true
