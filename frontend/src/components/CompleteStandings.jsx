@@ -67,8 +67,7 @@ function CompleteStandings() {
     const { teams } = useSelector((state) => state.teams);
     const rows = createData(teams);
   return (
-    <>
-        <div>CompleteStandings</div>
+    <div className='standingsTable'>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -100,7 +99,7 @@ function CompleteStandings() {
                 </TableBody>
             </Table>    
         </TableContainer>
-    </>
+    </div>
   )
 }
 

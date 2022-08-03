@@ -23,13 +23,29 @@ const eventSchema = mongoose.Schema({
         unique: true
     },
     startTime: {
-        type: Date,
+        type: String,
         required: [true, 'Please add a start time']
+    },
+    day: {
+        type: String,
+        required: [true, 'Please add a day']
     },
     eventType: {
         type: String,
-        required: [true, 'Pleas add an event tpye']
+        required: [true, 'Please add an event tpye']
     },
+    location: {
+        type: String,
+        required: [true, 'Please add a location']
+    },
+    divisions: {
+        type: Array,
+        required: [true, 'Please add a divison array']
+    },
+    eventLink: {
+        type: String,
+        required: [true, 'Please add a link name']
+    }
 },
 {
     timestamps: true

@@ -42,6 +42,10 @@ const teamSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Please add the current points of the team']
     },
+    abbreviation: {
+        type: String,
+        required: [true, 'Please add the team abbreviation']
+    },
 },
 {
     timestamps: true
