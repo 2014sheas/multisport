@@ -1,17 +1,17 @@
-import React from 'react'
+import {useState} from 'react'
 import Spinner from '../Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import GameEditForm from './GameEditForm';
 
 import {Dialog} from "@mui/material";
 
-function GameTicker({game, teams}) {
+function GameTicker({game, teams, playoffGames}) {
   
   
   const {user, isLoading, isError, isSuccess, message} = useSelector( 
     (state) => state.auth);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   if(!game || teams.length < 6){
     return <></>
@@ -56,7 +56,7 @@ function GameTicker({game, teams}) {
 
   const editGameDialog = (
     <Dialog open={open} onClose={handleToClose}>
-      <GameEditForm game={game} teams={teams} />
+      <GameEditForm game={game} teams={teams} playoffGames={playoffGames} />
     </Dialog>
   );
 

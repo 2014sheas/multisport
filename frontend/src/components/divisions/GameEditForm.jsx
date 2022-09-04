@@ -3,7 +3,8 @@ import axios from 'axios';
 import { getGames, } from '../../features/games/gameSlice';
 import {useSelector, useDispatch} from 'react-redux';
 
-function GameEditForm({game, teams}) {
+function GameEditForm({game, teams, playoffGames}) {
+
 
     const dispatch = useDispatch();
 
@@ -47,7 +48,7 @@ function GameEditForm({game, teams}) {
             loser,
 
         }
-        console.log(gameData)
+
 
         axios.put('/api/games/' + game._id, gameData)
             .then(response => {
@@ -57,13 +58,69 @@ function GameEditForm({game, teams}) {
                 console.log(error);
             })
 
+        //If this was a playoff game, automatically populate the teams in the championship/consolation
+        if(playoffGames.length > 0 && status == 'Complete'){
+            if(game.gameID == playoffGames[0].gameID){
+                const champGame = {
+                    ...playoffGames[2],
+                    home: winner,
+                }
+                const consGame = {
+                    ...playoffGames[3],
+                    home: loser
+                }
+
+                axios.put('/api/games/' + champGame._id, champGame)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                axios.put('/api/games/' + consGame._id, consGame)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+            else if(game.gameID == playoffGames[1].gameID){
+                const champGame = {
+                    ...playoffGames[2],
+                    away: winner,
+                }
+                const consGame = {
+                    ...playoffGames[3],
+                    away: loser
+                }
+
+                axios.put('/api/games/' + champGame._id, champGame)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                axios.put('/api/games/' + consGame._id, consGame)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+            else {
+                console.log('Error: You shouldnt be here');
+                console.log('Playoff game ID did not match either possible playoff game ID')
+            }
+        }
 
             dispatch(getGames());
     }
 
     const handleSelectWinner = (e) => {
         let winningTeam = e.target.value;
-        console.log(winningTeam == game.home)
         setFormData((prevState) => ({
             ...prevState,
             winner: winningTeam,

@@ -1,15 +1,28 @@
 import { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {Dialog} from "@mui/material";
 
 import DivisionForm from './DivisionForm';
 import GameTicker from './GameTicker';
 import DivisionStandings from './DivisionStandings';
+import EventEditForm from './EventEditForm';
 
 function DivisionContent({event}) {
     const { teams } = useSelector((state) => state.teams);
     const { games } = useSelector((state) => state.games);
-    
+    const {user, isLoading, isError, isSuccess, message} = useSelector( 
+      (state) => state.auth);
 
+    const [open, setOpen] = useState(false);
+
+    const handleClickToOpen = () => {
+      setOpen(true);
+    };
+
+    const handleToClose = () => {
+      setOpen(false);
+    };
+  
 
     const divisions = event.divisions;
     let hasDivisions = divisions[0].length === 3 && event.divisions[1].length === 3;
@@ -25,7 +38,7 @@ function DivisionContent({event}) {
     let championshipTicker = [];
     let consolationTicker = [];
 
-
+    //Basic structure for use in calculating standings
     let teamResult = {
       team: 0,
       division: 0,
@@ -37,6 +50,7 @@ function DivisionContent({event}) {
       winPct: 0.0,
     }
 
+    //function for populating array for use in calculating division standings
     const calcTeamResults = () =>{ 
       let teamResults = teams.map((team) => {
         let inDiv1 = false;
@@ -100,7 +114,7 @@ function DivisionContent({event}) {
 
 
 
-
+    //function for creating rows of game Tickers 
     const createGameRows = (gamesArray) => {
       let highIndex = 3;
       let lowIndex = 0;
@@ -120,7 +134,7 @@ function DivisionContent({event}) {
         highIndex+=3;
       }
 
-      //
+      //create row with less than 3 tickers
       if(arrLen%3){
         highIndex = arrLen;
         lowIndex = arrLen - (4-arrLen%3);
@@ -134,12 +148,14 @@ function DivisionContent({event}) {
       return allRows;
      }
 
-
+     //if event has no divisions, admin must create them
     if(!hasDivisions){
         return (
           <div>
-              <h4>{event.name}</h4>
-              {teams.length > 1 ? <DivisionForm teams={teams} event={event}/> : <></>}
+              {(user && user.admin ?
+                (teams.length > 1 ? <DivisionForm teams={teams} event={event}/> : <></>):
+                <h2>Please wait for an admin to create divisions for this event</h2>)
+                }
           </div>
         )
     }
@@ -173,7 +189,7 @@ function DivisionContent({event}) {
         })
         
         playoffTickers = playoffs.map((game) => {
-          return (<GameTicker game={game} teams={teams} key={game.gameID}/>)
+          return (<GameTicker game={game} teams={teams} playoffGames ={[playoffs[0], playoffs[1], championship[0], consolation[0]]}key={game.gameID}/>)
         })
 
         championshipTicker = championship.map((game) => {
@@ -190,11 +206,23 @@ function DivisionContent({event}) {
 
     }
 
+    
+    const editEventDialog = (
+      <Dialog open={open} onClose={handleToClose}>
+        <EventEditForm event={event} playoffs={playoffs} teams={teams} results={results} />
+      </Dialog>
+    );
+  
      
+    
 
 
   return (
     <div>
+      {editEventDialog}
+      {user && user.admin ? 
+        <button className='editEvent' onClick={handleClickToOpen} >edit event</button>
+          : <></>}
       {results && results.length > 0 ? 
       <div className='divisionStandingsContainer'>
         <DivisionStandings results={results[0]} teams={teams} />

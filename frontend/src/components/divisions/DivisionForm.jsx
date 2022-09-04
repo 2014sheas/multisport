@@ -194,7 +194,7 @@ function DivisionForm({teams, event}) {
         }))
     }
 
-    const formContent = <div><h2>Division Creation Form</h2>
+    const formContent = <div><h2>Division Editing Form</h2>
     <form onSubmit={onSubmit}>
         <div className='divisionForm'>
             <div>
@@ -262,9 +262,6 @@ function DivisionForm({teams, event}) {
             </button>
         </div>
     </form>
-        <button onClick={createGames}>
-            Create Games 
-        </button>
     </div>
 
 

@@ -116,6 +116,22 @@ h3 {
   
 }
 
+.editEvent {
+  color: blue;
+  position: absolute;
+  right: 20px;
+  font-size:medium;
+  border: 1px #777;
+  border-radius: 5px;
+}
+
+.eventEditForm {
+  font-size: large;
+  margin: 20px;
+  min-width: 500px;
+  max-width: 1000px;
+}
+
 .gameRow {
   margin: auto;
   max-width: 800px;
