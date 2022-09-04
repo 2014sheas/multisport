@@ -3,11 +3,11 @@ import {useSelector, useDispatch} from 'react-redux'
 import Spinner from '../components/Spinner'
 import { getEvents, reset } from '../features/events/eventSlice';
 import { getTeams, updateTeam } from '../features/teams/teamSlice'
-import EventTicker from '../components/EventTicker'
+
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import CompleteStandings from '../components/CompleteStandings';
-import EventHeader from '../components/EventHeader';
+
+
 
 const API_URL = '/api/teams/';
 
@@ -43,7 +43,6 @@ function HomePage() {
     let pointsArr = [0,0,0,0,0,0];
     
     events.forEach(event => {
-      console.log(event)
       if(event.status === 'Complete'){
         let i=0;
         event.results.forEach(result => {
@@ -79,7 +78,7 @@ function HomePage() {
         fourth: resultstsArr[tID-1][3],
         currentPoints: pointsArr[tID-1],
       }
-      console.log(curTeam.currentPoints);
+
       axios.put(API_URL + team._id, curTeam)
         .then(response => {
           console.log(response);
@@ -96,11 +95,8 @@ function HomePage() {
   return (
     <>
       <h3>HomePage</h3>
-      <button onClick={completeEvent}>Update</button>
       <section className="content">
-        <div className="goals">
-
-        </div>
+        <h1>Conent will go here</h1>
       </section>
 
     </>

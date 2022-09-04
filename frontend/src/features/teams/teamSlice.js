@@ -25,24 +25,7 @@ export const getTeams = createAsyncThunk('teams/getAll', async (_, thunkAPI) => 
     }
 });
 
-// Update a team
-export const updateTeam = createAsyncThunk('teams/update', 
-async (id, teamData, thunkAPI) => {
-    console.log(teamData);
-    console.log(id);
-    console.log(thunkAPI)
-     try {
-         return await teamService.updateTeam(id, teamData);
-     } catch (error) {
-        const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
-     }
-})
+
 
 
 export const teamSlice = createSlice({
@@ -62,18 +45,6 @@ export const teamSlice = createSlice({
             state.teams = action.payload
         })
         .addCase(getTeams.rejected, (state, action) => {
-            state.isLoading = false;
-            state.isError = true;
-            state.message = action.payload;
-        })
-        .addCase(updateTeam.pending, (state) => {
-            state.isLoading = true;
-        })
-        .addCase(updateTeam.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.isSuccess = true;
-        })
-        .addCase(updateTeam.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;

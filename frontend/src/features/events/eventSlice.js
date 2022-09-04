@@ -26,6 +26,7 @@ export const getEvents = createAsyncThunk('events/getAll', async (_, thunkAPI) =
 });
 
 
+
 export const eventSlice = createSlice({
     name: 'event',
     initialState,

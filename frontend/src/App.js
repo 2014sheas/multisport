@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Header from './components/Header';
 import Standings from './pages/Standings';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react'
 import { getEvents, reset } from './features/events/eventSlice';
-import { getTeams, updateTeam } from './features/teams/teamSlice'
+import { getTeams, updateTeam } from './features/teams/teamSlice';
+import { getGames, createGame, deleteGame, updateGame } from './features/games/gameSlice';
 import EventHeader from './components/EventHeader';
 import Schedule from './pages/Schedule';
 import DivisionEvent from './pages/DivisionEvent';
@@ -19,6 +21,7 @@ function App() {
   useEffect( () => { 
     dispatch(getEvents());
     dispatch(getTeams());
+    dispatch(getGames());
     
   }, []);
 
@@ -39,6 +42,8 @@ function App() {
           <Route path='/events/dodgeball' element={<DivisionEvent eventname={'dodgeball'} />}></Route>
           <Route path='/events/basketball' element={<DivisionEvent eventname={'basketball'} />}></Route>
           <Route path='/events/minigolf' element={<ScoreEvent eventname={'minigolf'} />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
         </Routes>
       </div>
     </Router>

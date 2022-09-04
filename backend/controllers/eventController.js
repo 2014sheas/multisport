@@ -12,7 +12,27 @@ const getEvents = asyncHandler(async (req, res) => {
     res.status(200).json(events);
 });
 
+// @desc    Update event
+// @route   PUT /api/events/:id
+// @access  PRIVATE
+const updateEvent = asyncHandler(async (req, res) => {
+    console.log('updating event')
+    const event = await Event.findById(req.params.id);
+
+    console.log(req.params)
+    if(!event) {
+        res.status(400);
+        throw new Error('Event not found');
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, {
+        new:true,
+    })
+
+    res.status(200).json(updatedEvent);
+}) ;
 
 module.exports = {
     getEvents,
+    updateEvent
 };

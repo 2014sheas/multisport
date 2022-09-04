@@ -9,18 +9,10 @@ const getTeams = async () => {
     return response.data;
 }
 
-//Get all teams
-const updateTeam = async (teamID, teamData) => {
-
-    const response = await axios.put(API_URL + teamID, teamData);
-    
-    return response.data;
-}
 
 
 const teamService = {
     getTeams,
-    updateTeam,
 }
 
 export default teamService;

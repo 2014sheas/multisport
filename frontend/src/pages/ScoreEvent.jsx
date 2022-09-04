@@ -1,29 +1,49 @@
 
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import {useEffect} from 'react'
 import { getEvents, reset } from '../features/events/eventSlice';
-import { getTeams, updateTeam } from '../features/teams/teamSlice'
+import { getTeams, updateTeam } from '../features/teams/teamSlice';
+import Spinner from '../components/Spinner';
+
+const API_URL = '/api/events';
+
+
+
+
 
 function ScoreEvent({eventname}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { events, isLoading, isError, message } = useSelector((state) => state.events);
+
+  useEffect( () => { 
+    if(isError){
+      console.log(message);
+    }
+    dispatch(getEvents())
+    return () => {
+      dispatch(reset);
+    }
+  }, [navigate, isError, message, dispatch]);
+
+
   let event;
 
-  const { events } = useSelector((state) => state.events);
-  useEffect( () => { 
-    dispatch(getEvents());
-    dispatch(getTeams());
-    
-  }, []);
-
-  event = events.find(ev => ev.eventLink === eventname);
-  
 
 
+  if(isLoading){
+    return <Spinner />
+  }
+  if(events.length > 0){
+    event = events.find(ev => ev.eventLink === eventname);
+  }
   return (
     <div>
       <h1>
-        {event.name}
+        {events.length > 0 ? event.name : 'Event'}
       </h1>
     </div>
   )
