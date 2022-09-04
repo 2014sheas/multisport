@@ -59,7 +59,7 @@ function GameEditForm({game, teams, playoffGames}) {
             })
 
         //If this was a playoff game, automatically populate the teams in the championship/consolation
-        if(playoffGames.length > 0 && status == 'Complete'){
+        if(playoffGames && playoffGames.length > 0 && status == 'Complete'){
             if(game.gameID == playoffGames[0].gameID){
                 const champGame = {
                     ...playoffGames[2],
