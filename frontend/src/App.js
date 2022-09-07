@@ -18,7 +18,6 @@ import ScoreEvent from './pages/ScoreEvent';
 
 
 function App() {
-  console.log(process.env);
   const dispatch = useDispatch();
 
   useEffect( () => { 
