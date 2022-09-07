@@ -15,7 +15,10 @@ import DivisionEvent from './pages/DivisionEvent';
 import ScoreEvent from './pages/ScoreEvent';
 
 
+
+
 function App() {
+  console.log(process.env.REACT_APP_INSTA_TOKEN);
   const dispatch = useDispatch();
 
   useEffect( () => { 
