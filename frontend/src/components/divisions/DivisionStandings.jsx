@@ -46,7 +46,6 @@ const createData  = (results, teams) => {
 function DivisionStandings({results, teams}) {
     const rows = createData(results, teams);
 
-
     return (
         
         <div>

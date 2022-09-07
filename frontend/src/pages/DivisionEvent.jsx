@@ -42,7 +42,7 @@ function DivisionEvent ({eventname}) {
       <h1>
         {events.length > 0 ? event.name : 'Event'}
       </h1>
-      {events.length > 0 ? <DivisionContent event={event} /> : <></>}
+      {events.length > 0 ? <DivisionContent event={event} events={events} /> : <></>}
     </div>
   )
 }

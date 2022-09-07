@@ -8,12 +8,18 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {user} = useSelector((state) => state.auth);
+    const {events} = useSelector((state) => state.events);
 
     const onLogout = () => {
         dispatch(logout());
         dispatch(reset());
         navigate('/');
     }
+
+    const dropdownContent = (events.map((event) => {
+        return <Link to={'/events/' + event.eventLink} key={event.eventID} >{event.name}</Link>
+    }))
+
 
   return (
     <header className='header'>
@@ -26,13 +32,7 @@ function Header() {
                 <div className="dropdown">
                     <button className="dropbtn">Events</button>
                     <div className="dropdown-content">
-                        <Link to='/events/bowling'>Bowling</Link>
-                        <Link to='/events/soccer'>Penalty Kicks</Link>
-                        <Link to='/events/football'>Football</Link>
-                        <Link to='/events/baseball'>HR Derby</Link>
-                        <Link to='/events/dodgeball'>Dodgeball</Link>
-                        <Link to='/events/basketball'>Basketball</Link>
-                        <Link to='/events/minigolf'>Mini Golf</Link>
+                        {dropdownContent}
                     </div>
                 </div>
             </li>

@@ -1,8 +1,11 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function EventTicker({event}) {
   const { teams } = useSelector((state) => state.teams);
+
+  const navigate = useNavigate();
   
   let teamNames = teams.map(team => {
     console.log()
@@ -42,12 +45,15 @@ function EventTicker({event}) {
       progressColor = 'Orange'
   }
 
+  const goToEvent = () => {
+    navigate('/events/'+event.eventLink)
+  }
 
 
 
 
   return (
-    <div className="eventTicker">
+    <div className="eventTicker" onClick={goToEvent}>
         <h4>{event.name}</h4>
         {content}
         <div className="progress" style={{color:progressColor}}>{event.status}</div>

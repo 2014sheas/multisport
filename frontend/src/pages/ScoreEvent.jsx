@@ -45,6 +45,7 @@ function ScoreEvent({eventname}) {
       <h1>
         {events.length > 0 ? event.name : 'Event'}
       </h1>
+      <h4>Scored Event Content Goes Here</h4>
     </div>
   )
 }

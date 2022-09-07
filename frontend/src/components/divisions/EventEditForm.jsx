@@ -1,14 +1,16 @@
 import {useState} from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getGames, } from '../../features/games/gameSlice';
-import {useSelector, useDispatch} from 'react-redux';
-import { formControlUnstyledClasses } from '@mui/base';
 import DivisionForm from './DivisionForm';
 
 
 function EventEditForm({event, playoffs, teams, results}) {
 
-    const dispatch = useDispatch();
+
+
+   
+
+    const navigate = useNavigate();
 
     let playoff1 = playoffs[0];
     let playoff2 = playoffs[1];
@@ -74,13 +76,13 @@ function EventEditForm({event, playoffs, teams, results}) {
             playoff1 = {
                 ...playoff1,
                 home: homeTeam1,
-                away: awayTeam1,
+                away: awayTeam2,
             }
 
             playoff2 = {
                 ...playoff2,
                 home: homeTeam2,
-                away: awayTeam2,
+                away: awayTeam1,
             }
 
             axios.put('/api/games/' + playoff1._id, playoff1)
@@ -133,7 +135,7 @@ function EventEditForm({event, playoffs, teams, results}) {
         }
         
 
-            dispatch(getGames());
+        navigate(0);
     }
 
     
@@ -248,3 +250,76 @@ function EventEditForm({event, playoffs, teams, results}) {
 }
 
 export default EventEditForm
+
+
+ /*
+    const completeEvent = () =>  {
+
+        // initialize a 6x5 array to store the finishing places for each event
+        let resultstsArr = [
+          [
+            [],[],[],[],[]
+          ],[
+            [],[],[],[],[]
+          ],[
+            [],[],[],[],[]
+          ],[
+            [],[],[],[],[]
+          ],[
+            [],[],[],[],[]
+          ]
+          ,[
+            [],[],[],[],[]
+          ]
+        ]
+        let pointsArr = [0,0,0,0,0,0];
+        
+        events.forEach(event => {
+          if(event.status === 'Complete'){
+            let i=0;
+            event.results.forEach(result => {
+              let fullPoints = event.fullPoints;
+              resultstsArr[result-1][i++].push(event.name);
+              switch(i-1){
+                case 0:
+                  pointsArr[result-1] += fullPoints ? 9 : 5;
+                  break;
+                case 1:
+                  pointsArr[result-1] += fullPoints ? 6 : 3;
+                  break;
+                case 2:
+                  pointsArr[result-1] += fullPoints ? 4 : 2;
+                  break;
+                case 3:
+                  pointsArr[result-1] += fullPoints ? 2 : 1;
+                  break;
+                default:
+                  break;
+                
+              }
+            })
+          }
+        });
+    
+        teams.forEach(team => {
+          let tID = team.teamID;
+          let curTeam = { 
+            first: resultstsArr[tID-1][0],
+            second: resultstsArr[tID-1][1],
+            third: resultstsArr[tID-1][2],
+            fourth: resultstsArr[tID-1][3],
+            currentPoints: pointsArr[tID-1],
+          }
+    
+          axios.put('/api/teams/' + team._id, curTeam)
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            })
+        
+    
+        })
+      }
+      */

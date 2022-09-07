@@ -42,6 +42,15 @@ function App() {
           <Route path='/events/dodgeball' element={<DivisionEvent eventname={'dodgeball'} />}></Route>
           <Route path='/events/basketball' element={<DivisionEvent eventname={'basketball'} />}></Route>
           <Route path='/events/minigolf' element={<ScoreEvent eventname={'minigolf'} />}></Route>
+          <Route path='/events/tennis' element={<DivisionEvent eventname={'tennis'} />}></Route>
+          <Route path='/events/hockey' element={<DivisionEvent eventname={'hockey'} />}></Route>
+          <Route path='/events/relay' element={<ScoreEvent eventname={'relay'} />}></Route>
+          <Route path='/events/kanjam' element={<DivisionEvent eventname={'kanjam'} />}></Route>
+          <Route path='/events/bottlebash' element={<DivisionEvent eventname={'bottlebash'} />}></Route>
+          <Route path='/events/cornhole' element={<DivisionEvent eventname={'cornhole'} />}></Route>
+          <Route path='/events/tugofwar' element={<DivisionEvent eventname={'tugofwar'} />}></Route>
+          <Route path='/events/eating' element={<ScoreEvent eventname={'eating'} />}></Route>
+          
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
         </Routes>

@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import Spinner from '../Spinner';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
 import { getGames, createGame, deleteGame, } from '../../features/games/gameSlice'
 import { getEvents, } from '../../features/events/eventSlice'
@@ -14,6 +15,7 @@ import axios from 'axios';
 function DivisionForm({teams, event}) {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { games, isLoading, isError, message } = useSelector((state) => 
     state.games)
@@ -79,6 +81,8 @@ function DivisionForm({teams, event}) {
                 console.log("Please make sure all team slots are filled");
             }
         }
+
+        navigate(0);
 
 
     }

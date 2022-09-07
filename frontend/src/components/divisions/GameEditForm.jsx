@@ -1,10 +1,11 @@
 import {useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 import { getGames, } from '../../features/games/gameSlice';
 import {useSelector, useDispatch} from 'react-redux';
 
 function GameEditForm({game, teams, playoffGames}) {
-
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -116,6 +117,7 @@ function GameEditForm({game, teams, playoffGames}) {
             }
         }
 
+            navigate(0);
             dispatch(getGames());
     }
 

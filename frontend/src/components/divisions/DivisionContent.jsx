@@ -93,8 +93,8 @@ function DivisionContent({event}) {
               losses: loseResult.losses + 1,
               pointsFor: loseResult.pointsFor + loseScore,
               pointsAgainst: loseResult.pointsAgainst + winScore,
-              gamesRem: winResult.gamesRem - 1,
-              winPct: ((winResult.wins)*1.0/(4-winResult.gamesRem)),
+              gamesRem: loseResult.gamesRem - 1,
+              winPct: ((loseResult.wins)*1.0/(4-loseResult.gamesRem)),
             }
             
           }
@@ -185,19 +185,19 @@ function DivisionContent({event}) {
         });
 
         regularGameTickers = regularGames.map((game) => {
-          return (<GameTicker game={game} teams={teams} key={game.gameID}/>)
+          return (<GameTicker game={game} teams={teams}  key={game.gameID}/>)
         })
         
         playoffTickers = playoffs.map((game) => {
-          return (<GameTicker game={game} teams={teams} playoffGames ={[playoffs[0], playoffs[1], championship[0], consolation[0]]}key={game.gameID}/>)
+          return (<GameTicker game={game} teams={teams}  playoffGames={[playoffs[0], playoffs[1], championship[0], consolation[0]]}key={game.gameID}/>)
         })
 
         championshipTicker = championship.map((game) => {
-          return (<GameTicker game={game} teams={teams} key={game.gameID}/>)
+          return (<GameTicker game={game} teams={teams}  key={game.gameID}/>)
         })
 
         consolationTicker = consolation.map((game) => {
-          return (<GameTicker game={game} teams={teams} key={game.gameID}/>)
+          return (<GameTicker game={game} teams={teams}  key={game.gameID}/>)
         })
         
 
@@ -241,7 +241,6 @@ function DivisionContent({event}) {
         <h2>Playoffs</h2>
           {createGameRows(playoffTickers)}
       </div>
-      <br></br>
       <br></br>
       <br></br>
       <div className='champCons'>
