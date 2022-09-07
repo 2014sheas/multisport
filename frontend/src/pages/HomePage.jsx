@@ -1,6 +1,9 @@
 import {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Spinner from '../components/Spinner'
+import { Carousel } from 'react-responsive-carousel';
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 import { useNavigate } from 'react-router-dom'
@@ -38,21 +41,47 @@ function HomePage() {
   }
 
   const createMediaContent = () => {
-    return (<div className='mediaContainer'>
-    <img src={media[1].media_url} width={700} height={500} />
-    <hr />
-    <p>{media[1].caption}</p>
-    <h5>*note: this is just a placeholder instagram image/caption feed until an official MultiSport account is created</h5>
-  </div>)
+
+    //use this to select which posts to display in carousel, would default be [0,1,2,3,4]
+    let selectedSlides = [4,6,9,17,3];
+
+    let slides = selectedSlides.map((index) => {
+      return (
+        <div>
+          <img src={media[index].media_url} height='600px' width='600px'  />
+          <p className='legend'>{media[index].caption}</p>
+        </div>
+      )
+    })
+
+    return (
+      <Carousel showArrows={true} showThumbs={false} infiniteLoop={true} autoPlay={true} interval={5000}>
+        {slides}
+      </Carousel>
+      )
   }
 
   return (
     <div>
       <br />
       <br />
-      <section className="content">
+      <h4>
+        *note: These are placeholders for when an official MultiSPort Instagram page is created
+      </h4>
+      <div className='mediaContainer'>
       {media.length > 0 ? createMediaContent() : <></>}
-      </section>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      
       
 
     </div>
