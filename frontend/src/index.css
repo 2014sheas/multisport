@@ -86,6 +86,10 @@ h3 {
   border-radius: 5px;
   padding-left: 5px;
   padding-right: 5px;
+
+}
+.eventTicker:hover {
+  background-color: antiquewhite;
 }
 
 .eventTicker p {

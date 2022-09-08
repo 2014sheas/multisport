@@ -16,10 +16,10 @@ const getEvents = asyncHandler(async (req, res) => {
 // @route   PUT /api/events/:id
 // @access  PRIVATE
 const updateEvent = asyncHandler(async (req, res) => {
-    console.log('updating event')
+
     const event = await Event.findById(req.params.id);
 
-    console.log(req.params)
+
     if(!event) {
         res.status(400);
         throw new Error('Event not found');

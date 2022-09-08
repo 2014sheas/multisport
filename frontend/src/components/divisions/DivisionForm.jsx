@@ -60,7 +60,7 @@ function DivisionForm({teams, event}) {
             let updatedEvent =  {
                                 divisions: divsForSubmit,
                                 }
-
+            console.log(updatedEvent)
             axios.put('/api/events/' + event._id, updatedEvent)
             .then(response => {
                 console.log(response);
@@ -82,7 +82,6 @@ function DivisionForm({teams, event}) {
             }
         }
 
-        navigate(0);
 
 
     }
