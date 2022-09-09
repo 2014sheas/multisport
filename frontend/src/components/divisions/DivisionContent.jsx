@@ -7,7 +7,7 @@ import GameTicker from './GameTicker';
 import DivisionStandings from './DivisionStandings';
 import EventEditForm from './EventEditForm';
 
-function DivisionContent({event}) {
+function DivisionContent({event, events}) {
     const { teams } = useSelector((state) => state.teams);
     const { games } = useSelector((state) => state.games);
     const {user, isLoading, isError, isSuccess, message} = useSelector( 
@@ -209,7 +209,7 @@ function DivisionContent({event}) {
     
     const editEventDialog = (
       <Dialog open={open} onClose={handleToClose}>
-        <EventEditForm event={event} playoffs={playoffs} teams={teams} results={results} />
+        <EventEditForm event={event} playoffs={playoffs} teams={teams} results={results} events={events}/>
       </Dialog>
     );
   

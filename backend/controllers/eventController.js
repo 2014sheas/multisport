@@ -30,7 +30,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     })
 
     res.status(200).json(updatedEvent);
-}) ;
+});
 
 module.exports = {
     getEvents,

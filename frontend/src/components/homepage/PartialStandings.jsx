@@ -1,10 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
-        Box, TableSortLabel, Paper } from '@mui/material';
-import {useSelector, useDispatch} from 'react-redux'
-
-
-
+    Box, TableSortLabel, Paper } from '@mui/material';
+import {useSelector, useDispatch} from 'react-redux';
 
 
 function createData(allTeams) {
@@ -12,31 +9,22 @@ function createData(allTeams) {
         return { 
             name:team.name,
             points:team.currentPoints,
-            first: team.first,
-            second: team.second,
-            third: team.third,
-            fourth: team.fourth,
         };
     })
     return data.sort((a,b) => b.points - a.points)
 }
 
-
-function CompleteStandings() {
+function PartialStandings() {
     const { teams } = useSelector((state) => state.teams);
     const rows = createData(teams);
   return (
-    <div className='standingsTable'>
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <div className='partialStandings'>
+        <TableContainer >
+            <Table sx={{ minWidth: 150 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>Team</TableCell>
                         <TableCell>Points</TableCell>
-                        <TableCell>First Place Finishes</TableCell>
-                        <TableCell>Second Place Finishes</TableCell>
-                        <TableCell>Third Place Finishes</TableCell>
-                        <TableCell>Fourth Place Finishes</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -49,10 +37,6 @@ function CompleteStandings() {
                                 {row.name}
                             </TableCell>
                             <TableCell align='center'>{row.points}</TableCell>
-                            <TableCell align='center' title={row.first}>{row.first.length}</TableCell>
-                            <TableCell align='center' title={row.second}>{row.second.length}</TableCell>
-                            <TableCell align='center' title={row.third}>{row.third.length}</TableCell>
-                            <TableCell align='center'title={row.fourth}>{row.fourth.length}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -62,4 +46,4 @@ function CompleteStandings() {
   )
 }
 
-export default CompleteStandings
+export default PartialStandings

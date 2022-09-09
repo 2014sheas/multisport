@@ -1,6 +1,8 @@
 import {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Spinner from '../components/Spinner'
+import PartialStandings from '../components/homepage/PartialStandings';
+import GameSidebar from '../components/homepage/GameSidebar';
 import { Carousel } from 'react-responsive-carousel';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -48,7 +50,7 @@ function HomePage() {
     let slides = selectedSlides.map((index) => {
       return (
         <div>
-          <img src={media[index].media_url} height='600px' width='600px'  />
+          <img src={media[index].media_url} height='600px' width='600px' alt={media[index].caption} />
           <p className='legend'>{media[index].caption}</p>
         </div>
       )
@@ -68,8 +70,12 @@ function HomePage() {
       <h4>
         *note: These are placeholders for when an official MultiSPort Instagram page is created
       </h4>
-      <div className='mediaContainer'>
-      {media.length > 0 ? createMediaContent() : <></>}
+      <div className='homePageContent'>
+        <GameSidebar />
+        <div className='mediaContainer'>
+          {media.length > 0 ? createMediaContent() : <></>}
+        </div>
+        <PartialStandings />
       </div>
       <br />
       <br />

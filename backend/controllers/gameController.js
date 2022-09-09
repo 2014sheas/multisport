@@ -28,10 +28,10 @@ const createGame = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get games
-// @route   GET /api/football
+// @route   GET /api/games
 // @access  PRIVATE
 const getGames = asyncHandler(async (req, res) => {
-    const games = await Game.find();
+    const games = await Game.find().sort({updatedAt: -1});
     
     res.status(200).json(games);
 });
