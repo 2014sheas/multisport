@@ -1,0 +1,33 @@
+import React from 'react'
+import axios from 'axios'   
+import {useSelector, useDispatch} from 'react-redux';
+import TeamStandings from './TeamStandings';
+import BowlingForm from './BowlingForm';
+import BowlingScores from './BowlingScores';
+import Spinner from '../../Spinner';
+
+
+function Bowling({event, teams}) {
+    const {user, isLoading, isError, isSuccess, message} = useSelector( 
+        (state) => state.auth);
+    
+    if(!event || teams.length<6){
+      return <Spinner />
+    }
+  return (
+    <div>
+        {
+          <TeamStandings scoreData={event.scoreData} teams={teams}/>
+        }
+        <br />
+        <br />
+        <br />
+        {
+          user && user.admin ? <BowlingForm event={event} teams={teams}/> : <BowlingScores event={event} teams={teams} />
+        }
+    </div>
+
+  )
+}
+
+export default Bowling

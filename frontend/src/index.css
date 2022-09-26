@@ -126,9 +126,6 @@ h3 {
 }
 
 .gameEvent {
-  
-  
-
   font-size: smaller;
 }
 
@@ -232,6 +229,61 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+
+.bowlingTable {
+  justify-content: center;
+  margin: auto; 
+  max-width: 300px;
+}
+
+.bowlingTeam {
+  position: relative;
+  width: 600px;
+
+  justify-content: center;
+  border: 1px #000 solid ;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 7px;
+
+}
+
+.bowlingRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.bowlingRow label {
+  position: relative;
+  left: 5px;
+}
+
+
+.bowlingMax {
+  position: absolute;
+  right: 60px;
+}
+
+.bowlingRow div {
+  position: relative;
+  left: 20px;
+}
+
+.frame1 {
+  position: absolute;
+  left: 240px;
+}
+
+.frame2 {
+  position: absolute;
+  left: 340px;
+}
+
+.bowlingName {
+  position: absolute;
+  left: 5px;
 }
 
 .schedTable {

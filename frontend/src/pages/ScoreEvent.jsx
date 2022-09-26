@@ -4,13 +4,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {useEffect} from 'react'
 import { getEvents, reset } from '../features/events/eventSlice';
-import { getTeams, updateTeam } from '../features/teams/teamSlice';
 import Spinner from '../components/Spinner';
-
-const API_URL = '/api/events';
-
-
-
+import Bowling from '../components/scored/bowling/Bowling';
 
 
 function ScoreEvent({eventname}) {
@@ -18,6 +13,7 @@ function ScoreEvent({eventname}) {
   const navigate = useNavigate();
 
   const { events, isLoading, isError, message } = useSelector((state) => state.events);
+  const { teams } = useSelector((state) => state.teams);
 
   useEffect( () => { 
     if(isError){
@@ -31,6 +27,7 @@ function ScoreEvent({eventname}) {
 
 
   let event;
+  let scoredComponent = <></>
 
 
 
@@ -39,13 +36,36 @@ function ScoreEvent({eventname}) {
   }
   if(events.length > 0){
     event = events.find(ev => ev.eventLink === eventname);
+
+    switch(event.eventLink) {
+      case 'bowling':
+        scoredComponent = <Bowling event={event} teams={teams} />
+        break;
+      case 'soccer':
+        console.log('soccer');
+        break;
+      case 'baseball':
+        console.log('baseball');
+        break;
+      case 'minigolf':
+        console.log('minigolf');
+        break;
+      case 'relay':
+        console.log('relay');
+        break;
+      case 'eating':
+        console.log('eating');
+        break;
+      default:
+        console.log('Error: Event not recognized')
+    }
   }
   return (
     <div>
       <h1>
         {events.length > 0 ? event.name : 'Event'}
       </h1>
-      <h4>Scored Event Content Goes Here</h4>
+      {scoredComponent}
     </div>
   )
 }

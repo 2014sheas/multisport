@@ -68,7 +68,7 @@ function HomePage() {
       <br />
       <br />
       <h4>
-        *note: These are placeholders for when an official MultiSPort Instagram page is created
+        *note: These are placeholders for when an official MultiSport Instagram page is created
       </h4>
       <div className='homePageContent'>
         <GameSidebar />

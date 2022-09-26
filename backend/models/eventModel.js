@@ -40,7 +40,11 @@ const eventSchema = mongoose.Schema({
     },
     divisions: {
         type: Array,
-        required: [true, 'Please add a divison array']
+        required: [false]
+    },
+    scoreData: {
+        type: Object,
+        required: [false]
     },
     eventLink: {
         type: String,

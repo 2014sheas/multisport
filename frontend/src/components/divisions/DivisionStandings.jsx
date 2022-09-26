@@ -2,32 +2,7 @@ import React from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
     Box, TableSortLabel, Paper } from '@mui/material';
 
-    const headCells = [
-    {
-        id: 'name',
-        numeric: false,
-        label: 'Team'
-    },
-    {
-        id: 'wins',
-        numeric: true,
-        label: 'Wins'
-    },
-    {
-        id: 'losses',
-        numeric: true,
-        label: 'Losses'
-    },
-    {
-        id: 'pointsFor',
-        numeric: true,
-        label: 'Points For'
-    },{
-        id: 'pointsAgainst',
-        numeric: true,
-        label: 'Points Against'
-    },
-]  
+ 
 
 
 const createData  = (results, teams) => { 
