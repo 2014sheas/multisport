@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'   
 import {useSelector, useDispatch} from 'react-redux';
 import TeamStandings from './TeamStandings';
+import IndividualStandings from './IndividualStandings';
 import BowlingForm from './BowlingForm';
 import BowlingScores from './BowlingScores';
 import Spinner from '../../Spinner';
@@ -16,15 +17,23 @@ function Bowling({event, teams}) {
     }
   return (
     <div>
+      <div className='scoreStandingContainer'>
         {
           <TeamStandings scoreData={event.scoreData} teams={teams}/>
         }
+        {
+          <IndividualStandings scoreData={event.scoreData} teams={teams} />
+        }
+        </div>
         <br />
         <br />
         <br />
         {
           user && user.admin ? <BowlingForm event={event} teams={teams}/> : <BowlingScores event={event} teams={teams} />
         }
+        <br />
+        <br />
+        <br />
     </div>
 
   )

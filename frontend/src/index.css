@@ -231,11 +231,24 @@ h3 {
   justify-content: space-between;
 }
 
+.scoreStandingContainer {
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+}
 
 .bowlingTable {
   justify-content: center;
   margin: auto; 
   max-width: 300px;
+}
+
+.bowlingTable2 {
+  justify-content: center;
+  margin: auto; 
+  max-width: 1000px;
 }
 
 .bowlingTeam {

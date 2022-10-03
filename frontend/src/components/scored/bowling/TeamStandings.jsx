@@ -30,7 +30,7 @@ function TeamStandings({scoreData, teams}) {
                     <Table sx={{ maxWidth: 350 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell></TableCell>
+                                <TableCell>Team</TableCell>
                                 <TableCell>Total Score</TableCell>
 
                             </TableRow>
