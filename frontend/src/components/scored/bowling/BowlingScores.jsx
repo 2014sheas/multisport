@@ -8,7 +8,7 @@ import Spinner from '../../Spinner';
 function BowlingScores({event, teams}) {
   let rawScores = event.scoreData;
   let scores = [rawScores.team1, rawScores.team2, rawScores.team3, rawScores.team4, rawScores.team5, rawScores.team6]
-  console.log(scores)
+
 
   const createTeamSections = () => {
     const teamArr = [0,1,2,3,4,5];

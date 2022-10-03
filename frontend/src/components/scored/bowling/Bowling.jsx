@@ -17,23 +17,21 @@ function Bowling({event, teams}) {
     }
   return (
     <div>
+      <br />
+      {<TeamStandings scoreData={event.scoreData} teams={teams}/>}
+      <br /> 
+      <br />
       <div className='scoreStandingContainer'>
-        {
-          <TeamStandings scoreData={event.scoreData} teams={teams}/>
-        }
-        {
-          <IndividualStandings scoreData={event.scoreData} teams={teams} />
-        }
-        </div>
-        <br />
-        <br />
-        <br />
-        {
-          user && user.admin ? <BowlingForm event={event} teams={teams}/> : <BowlingScores event={event} teams={teams} />
-        }
-        <br />
-        <br />
-        <br />
+        {user && user.admin ? <BowlingForm event={event} teams={teams}/> : <BowlingScores event={event} teams={teams} />}
+        {<IndividualStandings scoreData={event.scoreData} teams={teams} />}
+      </div>
+      <br />
+      <br />
+      <br />
+      
+      <br />
+      <br />
+      <br />
     </div>
 
   )

@@ -87,7 +87,6 @@ function BowlingForm({event, teams}) {
             team6: [[t6p1f1, t6p1f2], [t6p2f1, t6p2f2], [t6p3f1, t6p3f2], [t6p4f1, t6p4f2]],
         }
 
-        console.log(newData);
 
         const eventData = {
             ...event,
