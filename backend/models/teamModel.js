@@ -30,6 +30,22 @@ const teamSchema = mongoose.Schema({
         type: Array,
         required: [true, 'Please add a fourth place array']
     },
+    fifth: {
+        type: Array,
+        required: [true, 'Please add a fifth place array']
+    },
+    sixth: {
+        type: Array,
+        required: [true, 'Please add a sixth place array']
+    },
+    seventh: {
+        type: Array,
+        required: [true, 'Please add a seventh place array']
+    },
+    eighth: {
+        type: Array,
+        required: [true, 'Please add a eighth place array']
+    },
     noPoints: {
         type: Array,
         required: [true, 'Please add a noPoints array']

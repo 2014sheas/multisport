@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 import Bowling from '../components/scored/bowling/Bowling';
 
 
+
 function ScoreEvent({eventname}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function ScoreEvent({eventname}) {
 
     switch(event.eventLink) {
       case 'bowling':
-        scoredComponent = <Bowling event={event} teams={teams} />
+        scoredComponent = <Bowling event={event} teams={teams} events={events}/>
         break;
       case 'soccer':
         console.log('soccer');

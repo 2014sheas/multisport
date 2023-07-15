@@ -45,7 +45,7 @@ function HomePage() {
   const createMediaContent = () => {
 
     //use this to select which posts to display in carousel, would default be [0,1,2,3,4]
-    let selectedSlides = [4,6,9,17,3];
+    let selectedSlides = [0];
 
     let slides = selectedSlides.map((index) => {
       return (
@@ -68,13 +68,12 @@ function HomePage() {
       <br />
       <br />
       <h4>
-        *note: These are placeholders for when an official MultiSport Instagram page is created
       </h4>
       <div className='homePageContent'>
         <GameSidebar />
-        <div className='mediaContainer'>
+        {/* <div className='mediaContainer'>
           {media.length > 0 ? createMediaContent() : <></>}
-        </div>
+        </div> */}
         <PartialStandings />
       </div>
       <br />

@@ -25,10 +25,11 @@ function DivisionContent({event, events}) {
   
 
     const divisions = event.divisions;
-    let hasDivisions = divisions[0].length === 3 && event.divisions[1].length === 3;
+    let hasDivisions = divisions[0].length === 4 && event.divisions[1].length === 4;
     let relevantGames = [];
     let regularGames  = [];
     let playoffs = [];
+    let losers = [];
     let championship = [];
     let consolation = [];
     let results = [];
@@ -37,6 +38,7 @@ function DivisionContent({event, events}) {
     let playoffTickers = [];
     let championshipTicker = [];
     let consolationTicker = [];
+    let loserTickers =[];
 
     //Basic structure for use in calculating standings
     let teamResult = {
@@ -173,6 +175,9 @@ function DivisionContent({event, events}) {
             case 'playoff':
               playoffs.push(game);
               break;
+            case 'losers': 
+              losers.push(game);
+              break;
             case 'championship':
               championship.push(game);
               break;
@@ -199,6 +204,10 @@ function DivisionContent({event, events}) {
         consolationTicker = consolation.map((game) => {
           return (<GameTicker game={game} teams={teams}  key={game.gameID}/>)
         })
+
+        loserTickers= playoffs.map((game) => {
+          return (<GameTicker game={game} teams={teams}  playoffGames={[playoffs[0], playoffs[1], championship[0], consolation[0]]}key={game.gameID}/>)
+        })
         
 
         results = calcTeamResults();
@@ -209,7 +218,7 @@ function DivisionContent({event, events}) {
     
     const editEventDialog = (
       <Dialog open={open} onClose={handleToClose}>
-        <EventEditForm event={event} playoffs={playoffs} teams={teams} results={results} events={events}/>
+        <EventEditForm event={event} playoffs={playoffs} losers={losers} teams={teams} results={results} events={events}/>
       </Dialog>
     );
   
@@ -241,6 +250,12 @@ function DivisionContent({event, events}) {
         <h2>Playoffs</h2>
           {createGameRows(playoffTickers)}
       </div>
+      <br></br>
+      <br></br>
+      <div className='playoffRowContainer'> 
+          <h2>Divison Consolation</h2>
+          {createGameRows(loserTickers)}
+        </div>
       <br></br>
       <br></br>
       <div className='champCons'>

@@ -1,30 +1,16 @@
 import {useState} from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import DivisionForm from './DivisionForm';
 import {useSelector, useDispatch} from 'react-redux'
 
 import { getEvents, } from '../../features/events/eventSlice'
 
 
-function EventEditForm({event, playoffs, losers, teams, events, results}) {
+function ScoredEditForm({event, teams, events, results}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let playoff1 = playoffs[0];
-    let playoff2 = playoffs[1];
-    let loser1 = losers[0];
-    let loser2 = losers[1]
-
     const [formData, setFormData] = useState({
-        homeTeam1: playoff1.home == 0 ? results[0][0].team: playoff1.home,
-        homeTeam2: playoff2.home == 0 ? results[1][0].team: playoff2.home,
-        homeTeam3: playoff1.home == 0 ? results[0][2].team: loser1.home,
-        homeTeam4: playoff2.home == 0 ? results[1][2].team: loser2.home,
-        awayTeam1: playoff1.away == 0 ? results[0][1].team: playoff1.away,
-        awayTeam2: playoff2.away == 0 ? results[1][1].team: playoff2.away,
-        awayTeam3: playoff1.away == 0 ? results[0][3].team: loser1.away,
-        awayTeam4: playoff2.away == 0 ? results[1][3].team: loser2.away,
 
         status: event.status,
         first: event.results.length > 0 ? event.results[0] : 1,
@@ -41,24 +27,14 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
 
     const [active, setActive] = useState(false);
     const [readyforComplete, setReadyForComplete] = useState(false);
-    const [readyForPlayoffs, setReadyForPlayoffs] = useState(false);
-
-    const {homeTeam1, homeTeam2, homeTeam3, homeTeam4, awayTeam1, awayTeam2, awayTeam3, awayTeam4,
-            status, first, second, third, fourth, fifth, sixth, seventh, eighth} = formData;
-
     
-
     const toggleCompleteEvent = (e) => {
         e.preventDefault();
 
         setReadyForComplete((prevState) => (!prevState))
       }
 
-    const toggleEditPlayoffs = (e) => {
-      e.preventDefault();
-
-      setReadyForPlayoffs((prevState) => (!prevState))
-  }
+    const {status, first, second, third, fourth, fifth, sixth, seventh, eighth} = formData;
     
     const calculatePoints = (allEvents) =>  {
 
@@ -150,12 +126,6 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
     
         })
       }
-    
-    const toggleEditDivisions = (e) => {
-        e.preventDefault();
-
-        setActive((prevState) => (!prevState))
-    }
 
     
 
@@ -169,50 +139,7 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        let readyForSubmit  = false;
-
-        if(readyForPlayoffs){
-          readyForSubmit  = (homeTeam1 != awayTeam1) && (homeTeam2 != awayTeam2);
-          if(readyForSubmit){
-              playoff1 = {
-                  ...playoff1,
-                  home: homeTeam1,
-                  away: awayTeam2,
-              }
-
-              playoff2 = {
-                  ...playoff2,
-                  home: homeTeam2,
-                  away: awayTeam1,
-              }
-
-              loser1 = {
-
-              }
-
-              axios.put('/api/games/' + playoff1._id, playoff1)
-                  .then(response => {
-                      console.log(response);
-                  })
-                  .catch(error => {
-                      console.log(error);
-                  })
-              axios.put('/api/games/' + playoff2._id, playoff2)
-                  .then(response => {
-                      console.log(response);
-                  })
-                  .catch(error => {
-                      console.log(error);
-                  })
-                  
-          }
-          else {
-              console.log('Invalid Submission');
-              console.log('Please make sure all teams are unique');
-              
-          }
-        }
-        else if (readyforComplete){
+        if (readyforComplete){
             let eventResults = [parseInt(first), parseInt(second), parseInt(third), parseInt(fourth), parseInt(fifth), parseInt(sixth), parseInt(seventh), parseInt(eighth)];
 
             let resultsSet  = [...new Set(eventResults)];
@@ -273,11 +200,6 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
         setActive((false));
     }
 
-    const createDropdowns = (resultList) => {
-        
-        return resultList.map(result => <option key ={result.team}value={result.team}>{teams[result.team-1].name}</option>);
-    }
-
     const createCompleteDropdowns = () => {
         const teamsList = [1,2,3,4,5,6,7,8];
         
@@ -293,48 +215,6 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
         }))
     }
 
-    const selectPlayoffs = (
-        <div>
-        <h4>Playoff Qualifiers: </h4>
-            <label htmlFor='homeTeam1'>Winner Division 1: </label>
-                <select id='homeTeam1' name='homeTeam1' value={homeTeam1} onChange={onChange}>
-                {createDropdowns(results[0])}
-                </select>
-                <br></br>
-            <label htmlFor='awayTeam1'>2nd Place Division 1: </label>
-                <select id='awayTeam1' name='awayTeam1' value={awayTeam1} onChange={onChange}>
-                    {createDropdowns(results[0])}
-                </select>
-            <label htmlFor='hometeam3'>3rd Place Division 1: </label>
-                <select id='homeTeam3' name='homeTeam3' value={homeTeam3} onChange={onChange}>
-                {createDropdowns(results[0])}
-                </select>
-            <label htmlFor='awayteam3'>4th Place Division 1: </label>
-                <select id='awayTeam3' name='awayTeam3' value={awayTeam3} onChange={onChange}>
-                {createDropdowns(results[0])}
-                </select>
-                <br></br>
-            <label htmlFor='homeTeam2'>Winner Division 2: </label>
-                <select id='homeTeam2' name='homeTeam2' value={homeTeam2} onChange={onChange}>
-                {createDropdowns(results[1])}
-                </select>
-                <br></br>
-            <label htmlFor='awayTeam2'>2nd Place Division 2: </label>
-                <select id='awayTeam2' name='awayTeam2' value={awayTeam2} onChange={onChange}>
-                {createDropdowns(results[1])}
-                </select>
-                <br></br>
-            <label htmlFor='homeTeam4'>3rd Place Division 1: </label>
-                <select id='homeTeam4' name='homeTeam4' value={homeTeam4} onChange={onChange}>
-                {createDropdowns(results[1])}
-                </select>
-            <label htmlFor='awayTeam4'>4th Place Division 1: </label>
-                <select id='awayTeam4' name='awayTeam4' value={awayTeam4} onChange={onChange}>
-                {createDropdowns(results[1])}
-                </select>
-                <br></br>
-        </div>
-    )
 
     const completeForm = (
         <div>
@@ -343,8 +223,7 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
             <label htmlFor='first'>1st Place: </label>
                 <select id='first' name='first' value={first} onChange={onChange}>
                 {createCompleteDropdowns()}
-                </select>
-                
+                </select> 
                 <br></br>
             <label htmlFor='second'>2nd Place: </label>
                 <select id='second' name='second' value={second} onChange={onChange}>
@@ -395,11 +274,6 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
                     <option value={'In Progress'}>In Progress</option>
             </select>
             <br></br>
-            {event.status === 'Upcoming' ? <button onClick={toggleEditDivisions}>Edit Divisions</button> 
-            : <></>}
-            {event.status === 'In Progress' ? <button onClick={toggleEditPlayoffs}>Edit Playoffs</button> : <></>}
-            <br></br>
-            {readyForPlayoffs? selectPlayoffs : <></> }
             {event.status === 'In Progress' || event.status === 'Complete'  ? <button onClick={toggleCompleteEvent}>Complete Event</button> : <></>}
             {readyforComplete ? completeForm : <></> }
             <button type='submit' className='btn btn-block'>
@@ -407,12 +281,11 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
             </button>
             <button onClick={calculatePoints(events)}>Recalculate Points</button>
         </form>
-        {active? <DivisionForm teams={teams} event={event} /> : <></>}
     </div>
   )
 }
 
-export default EventEditForm
+export default ScoredEditForm
 
 
  

@@ -5,7 +5,7 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 
     
 const createData  = (data, teams) => { 
-    let teamsData = [data.team1, data.team2, data.team3, data.team4, data.team5, data.team6]
+    let teamsData = [data.team1, data.team2, data.team3, data.team4, data.team5, data.team6,  data.team7,  data.team8]
     let rawData =  teamsData.map((teamData, index) => {
         let teamTotal = Math.max(teamData[0][0], teamData[0][1]) + 
                         Math.max(teamData[1][0], teamData[1][1]) + 

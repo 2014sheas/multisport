@@ -39,9 +39,9 @@ function Header() {
             <li>
                 <Link to='/standings'>Standings</Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to='/schedule'>Schedule</Link>
-            </li>
+            </li> */}
             {user ? (
             <>
                 <li>

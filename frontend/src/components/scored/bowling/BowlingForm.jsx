@@ -37,7 +37,17 @@ function BowlingForm({event, teams}) {
         t6p1f1: scoreData.team6[0][0], t6p1f2: scoreData.team6[0][1], 
         t6p2f1: scoreData.team6[1][0], t6p2f2: scoreData.team6[1][1], 
         t6p3f1: scoreData.team6[2][0], t6p3f2: scoreData.team6[2][1], 
-        t6p4f1: scoreData.team6[3][0], t6p4f2: scoreData.team6[3][1], 
+        t6p4f1: scoreData.team6[3][0], t6p4f2: scoreData.team6[3][1],
+        
+        t7p1f1: scoreData.team7[0][0], t7p1f2: scoreData.team7[0][1], 
+        t7p2f1: scoreData.team7[1][0], t7p2f2: scoreData.team7[1][1], 
+        t7p3f1: scoreData.team7[2][0], t7p3f2: scoreData.team7[2][1], 
+        t7p4f1: scoreData.team7[3][0], t7p4f2: scoreData.team7[3][1], 
+
+        t8p1f1: scoreData.team8[0][0], t8p1f2: scoreData.team8[0][1], 
+        t8p2f1: scoreData.team8[1][0], t8p2f2: scoreData.team8[1][1], 
+        t8p3f1: scoreData.team8[2][0], t8p3f2: scoreData.team8[2][1], 
+        t8p4f1: scoreData.team8[3][0], t8p4f2: scoreData.team8[3][1], 
     });
 
     const {
@@ -70,6 +80,16 @@ function BowlingForm({event, teams}) {
         t6p2f1, t6p2f2,
         t6p3f1, t6p3f2,
         t6p4f1, t6p4f2,
+
+        t7p1f1, t7p1f2,
+        t7p2f1, t7p2f2,
+        t7p3f1, t7p3f2,
+        t7p4f1, t7p4f2,
+
+        t8p1f1, t8p1f2,
+        t8p2f1, t8p2f2,
+        t8p3f1, t8p3f2,
+        t8p4f1, t8p4f2,
         
     } = formData;
 
@@ -85,6 +105,8 @@ function BowlingForm({event, teams}) {
             team4: [[t4p1f1, t4p1f2], [t4p2f1, t4p2f2], [t4p3f1, t4p3f2], [t4p4f1, t4p4f2]],
             team5: [[t5p1f1, t5p1f2], [t5p2f1, t5p2f2], [t5p3f1, t5p3f2], [t5p4f1, t5p4f2]],
             team6: [[t6p1f1, t6p1f2], [t6p2f1, t6p2f2], [t6p3f1, t6p3f2], [t6p4f1, t6p4f2]],
+            team7: [[t7p1f1, t7p1f2], [t7p2f1, t7p2f2], [t7p3f1, t7p3f2], [t7p4f1, t7p4f2]],
+            team8: [[t8p1f1, t8p1f2], [t8p2f1, t8p2f2], [t8p3f1, t8p3f2], [t8p4f1, t8p4f2]],
         }
 
 
@@ -110,7 +132,7 @@ function BowlingForm({event, teams}) {
     }
 
     const createTeamSections = () => {
-        const teamArr = [1,2,3,4,5,6];
+        const teamArr = [1,2,3,4,5,6,7,8];
         const playerArr = [1,2,3,4];
         return teamArr.map((teamNum) => {
                 let teamScore = Math.max(eval('t' + teamNum + 'p' + 1 + 'f1'), eval('t' + teamNum + 'p' + 1 + 'f2')) + 

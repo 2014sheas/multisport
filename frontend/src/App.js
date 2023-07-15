@@ -40,7 +40,7 @@ function App() {
           <Route path='/events/bowling' element={<ScoreEvent eventname={'bowling'}/>}></Route>
           <Route path='/events/soccer' element={<ScoreEvent eventname={'soccer'} />}></Route>
           <Route path='/events/football' element={<DivisionEvent eventname={'football'} />}></Route>
-          <Route path='/events/baseball' element={<ScoreEvent eventname={'baseball'} />}></Route>
+          <Route path='/events/baseball' element={<DivisionEvent eventname={'baseball'} />}></Route>
           <Route path='/events/dodgeball' element={<DivisionEvent eventname={'dodgeball'} />}></Route>
           <Route path='/events/basketball' element={<DivisionEvent eventname={'basketball'} />}></Route>
           <Route path='/events/minigolf' element={<ScoreEvent eventname={'minigolf'} />}></Route>
@@ -52,6 +52,7 @@ function App() {
           <Route path='/events/cornhole' element={<DivisionEvent eventname={'cornhole'} />}></Route>
           <Route path='/events/tugofwar' element={<DivisionEvent eventname={'tugofwar'} />}></Route>
           <Route path='/events/eating' element={<ScoreEvent eventname={'eating'} />}></Route>
+          <Route path='/events/volleyball' element={<DivisionEvent eventname={'volleyball'} />}></Route>
           
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>

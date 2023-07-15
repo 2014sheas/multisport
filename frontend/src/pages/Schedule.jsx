@@ -10,13 +10,13 @@ function Schedule() {
 
     events.forEach((event) => {
         switch(event.day) {
-            case 'Fri 7/29':
+            case 'Fri 7/14':
                 fri.push(event)
                 break;
-            case 'Sat 7/30':
+            case 'Sat 7/15':
                 sat.push(event)
                 break;
-            case 'Sun 7/31':
+            case 'Sun 7/16':
                 sun.push(event)
                 break;
             default:

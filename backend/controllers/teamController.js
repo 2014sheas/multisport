@@ -3,8 +3,8 @@ const asyncHandler = require('express-async-handler');
 const Team = require('../models/teamModel');
 
 
-// @desc    Get events
-// @route   GET /api/events
+// @desc    Get teams
+// @route   GET /api/teams
 // @access  PRIVATE
 const getTeams = asyncHandler(async (req, res) => {
     const teams = await Team.find();
@@ -12,8 +12,8 @@ const getTeams = asyncHandler(async (req, res) => {
     res.status(200).json(teams);
 });
 
-// @desc    Update goal
-// @route   POST /api/goals/:id
+// @desc    Update team
+// @route   POST /api/teams/:id
 // @access  PRIVATE
 const updateTeam = asyncHandler(async (req, res) => {
     const team = await Team.findById(req.params.id);
@@ -21,7 +21,7 @@ const updateTeam = asyncHandler(async (req, res) => {
     console.log(req.params)
     if(!team) {
         res.status(400);
-        throw new Error('Goal not found');
+        throw new Error('Team not found');
     }
 
     const updatedTeam = await Team.findByIdAndUpdate(req.params.id, req.body, {

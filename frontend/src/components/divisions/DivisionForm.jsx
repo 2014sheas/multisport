@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import Spinner from '../Spinner';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
 import { getGames, createGame, deleteGame, } from '../../features/games/gameSlice'
 import { getEvents, } from '../../features/events/eventSlice'
@@ -26,19 +26,39 @@ function DivisionForm({teams, event}) {
         div1team1: 0,
         div1team2: 0,
         div1team3: 0,
+        div1team4: 0,
         div2team1: 0,
         div2team2: 0,
         div2team3: 0,
+        div2team4: 0,
     })
 
-    const {div1team1, div1team2, div1team3, div2team1, div2team2, div2team3} = divisions;
+    const {div1team1, div1team2, div1team3, div1team4, div2team1, div2team2, div2team3, div2team4} = divisions;
+
+
+    const randomizeDivisions = () => {
+        let teamsArr = [1,2,3,4,5,6,7,8];
+        teamsArr = teamsArr.sort((a, b) => 0.5 - Math.random())
+        setDivisions((prevState) => ({
+            ...prevState,
+        div1team1:teamsArr[0],
+        div1team2:teamsArr[1],
+        div1team3:teamsArr[2],
+        div1team4:teamsArr[3],
+        div2team1:teamsArr[4],
+        div2team2:teamsArr[5],
+        div2team3:teamsArr[6],
+        div2team4:teamsArr[7],
+        }))
+
+    }
 
     //function for when the submit button is clicked
     const onSubmit = (e) => {
         e.preventDefault();
 
-        //Check to make sure all six teams are placed in divisions
-        let divs = [div1team1, div1team2, div1team3, div2team1, div2team2, div2team3];
+        //Check to make sure all eight teams are placed in divisions
+        let divs = [div1team1, div1team2, div1team3, div1team4, div2team1, div2team2, div2team3, div2team4];
         let uniqueDivs = [...new Set(divs)];
 
 
@@ -51,10 +71,10 @@ function DivisionForm({teams, event}) {
             }
         })
 
-        let readyForSubmit = (uniqueDivs.length === 6 && formFilled)
+        let readyForSubmit = (uniqueDivs.length === 8 && formFilled)
 
         if(readyForSubmit) {
-            let divsForSubmit = [divs.slice(0,3), divs.slice(3)]
+            let divsForSubmit = [divs.slice(0,4), divs.slice(4)]
             createGames(divsForSubmit);
 
             let updatedEvent =  {
@@ -85,6 +105,8 @@ function DivisionForm({teams, event}) {
 
 
     }
+
+ 
 
     
     
@@ -118,44 +140,59 @@ function DivisionForm({teams, event}) {
                         away: newDivisions[0][1],
                         },
                         {...defaultGame,
+                        gameID: baseID+3,
+                        home: newDivisions[0][2],
+                        away: newDivisions[0][3],
+                        },
+                        {...defaultGame,
+                        gameID: baseID+5,
+                        home: newDivisions[0][0],
+                        away: newDivisions[0][2],
+                        },
+                        {...defaultGame,
+                        gameID: baseID+7,
+                        home: newDivisions[0][1],
+                        away: newDivisions[0][3],
+                        },
+                        {...defaultGame,
+                        gameID: baseID+9,
+                        home: newDivisions[0][0],
+                        away: newDivisions[0][3],
+                        },
+                        {...defaultGame,
+                        gameID: baseID+11,
+                        home: newDivisions[0][1],
+                        away: newDivisions[0][2],
+                        },
+                        {...defaultGame,
                         gameID: baseID+2,
                         home: newDivisions[1][0],
                         away: newDivisions[1][1],
                         },
                         {...defaultGame,
-                        gameID: baseID+3,
-                        home: newDivisions[0][2],
-                        away: newDivisions[1][2],
-                        },
-                        {...defaultGame,
                         gameID: baseID+4,
-                        home: newDivisions[0][0],
-                        away: newDivisions[0][2],
+                        home: newDivisions[1][2],
+                        away: newDivisions[1][3],
                         },
                         {...defaultGame,
-                        gameID: baseID+5,
+                        gameID: baseID+6,
                         home: newDivisions[1][0],
                         away: newDivisions[1][2],
                         },
                         {...defaultGame,
-                        gameID: baseID+6,
-                        home: newDivisions[0][1],
-                        away: newDivisions[1][1],
-                        },
-                        {...defaultGame,
-                        gameID: baseID+7,
-                        home: newDivisions[0][1],
-                        away: newDivisions[0][2],
-                        },
-                        {...defaultGame,
                         gameID: baseID+8,
                         home: newDivisions[1][1],
-                        away: newDivisions[1][2],
+                        away: newDivisions[1][3],
                         },
                         {...defaultGame,
-                        gameID: baseID+9,
-                        home: newDivisions[0][0],
-                        away: newDivisions[1][0],
+                        gameID: baseID+10,
+                        home: newDivisions[1][0],
+                        away: newDivisions[1][3],
+                        },
+                        {...defaultGame,
+                        gameID: baseID+12,
+                        home: newDivisions[1][1],
+                        away: newDivisions[1][2],
                         },
                         {...defaultGame,
                         gameID: baseID+10,
@@ -172,6 +209,14 @@ function DivisionForm({teams, event}) {
                         {...defaultGame,
                         gameID: baseID+12,
                         special: 'consolation',
+                        },
+                        {...defaultGame,
+                            gameID: baseID+13,
+                            special: 'losers1',
+                        },
+                        {...defaultGame,
+                            gameID: baseID+14,
+                            special: 'losers2',
                         }
                     ]
 
@@ -184,13 +229,15 @@ function DivisionForm({teams, event}) {
     }
 
     const createDropdowns = () => {
-        const teamsList = [1,2,3,4,5,6];
+        const teamsList = [1,2,3,4,5,6,7,8];
+
         
 
         return teamsList.map(team => <option key ={team}value={team}>{teams[team-1].name}</option>);
     }
 
     const handleChange = (e) => {
+        console.log('Drop')
         setDivisions((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -228,6 +275,14 @@ function DivisionForm({teams, event}) {
                     onChange={handleChange}>
                         <option value={0} disabled={true}>Select a team</option>
                         {createDropdowns()}
+                    </select><select 
+                    id='div1team4'
+                    name='div1team4'
+                    value={div1team4}
+                    placeholder='Select a team'
+                    onChange={handleChange}>
+                        <option value={0} disabled={true}>Select a team</option>
+                        {createDropdowns()}
                     </select>
         </div>
         <div>
@@ -256,24 +311,34 @@ function DivisionForm({teams, event}) {
                     onChange={handleChange}>
                         <option value={0} disabled={true}>Select a team</option>
                         {createDropdowns()}
+                    </select><select 
+                    id='div2team4'
+                    name='div2team4'
+                    value={div2team4}
+                    placeholder='Select a team'
+                    onChange={handleChange}>
+                        <option value={0} disabled={true}>Select a team</option>
+                        {createDropdowns()}
                     </select>
         </div>
         </div>
+        <br></br>
         <div className="form-group">
             <button type='submit' >
                 Submit 
-            </button>
+            </button>    
         </div>
     </form>
+    <button onClick={randomizeDivisions}>Randomize Divisions</button>
     </div>
 
 
-    if(teams.length < 5) {
+    if(teams.length < 7) {
         return <Spinner />
     }
   return (
     <div>
-        {teams.length < 2 ? <Spinner /> : formContent}
+        {teams.length < 3 ? <Spinner /> : formContent}
     </div>
 
   )
