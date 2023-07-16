@@ -87,35 +87,37 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
         allEvents.forEach(singleEvent => {
           if(singleEvent.status === 'Complete'){
 
-            let isSoftball = singleEvent.name === 'Softball';
+            let isCombined = singleEvent.name === 'Softball' || singleEvent.name === 'Volleyball';
+            let isHockey = singleEvent.name === 'Hokcey';
+            let isSplit = singleEvent.name === 'Pooping';
             let i=0;
             singleEvent.results.forEach(result => {
               let fullPoints = singleEvent.fullPoints;
               resultstsArr[result-1][i++].push(singleEvent.name);
               switch(i){
                 case 1:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 10 : 10) : 5;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : (isHockey ? 6 : 10)) : 5;
                   break;
                 case 2:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 10 : 8) : 4;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : 8) : 4;
                   break;
                 case 3:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 7 : 6) : 3;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : 6) : 3;
                   break;
                 case 4:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 7 : 5) : 2;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : 5) : 2;
                   break;
                 case 5:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 5 : 3) : 1;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : (isHockey ? 7 : 3)) : 1;
                   break;
                 case 6:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 5 : 2) : 1;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : 3) : 1;
                   break;
                 case 7:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 2 : 1) : 0;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : 1) : 0;
                   break;
                 case 8:
-                  pointsArr[result-1] += fullPoints ? (isSoftball ? 2 : 0) : 0;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : 1) : 0;
                   break;
                 default:
                   break;
@@ -234,8 +236,7 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
                     .catch(error => {
                         console.log(error);
                     })
-                    dispatch(getEvents())
-                console.log(events)
+                dispatch(getEvents())
                 calculatePoints(events);
             }
             else {
