@@ -89,35 +89,36 @@ function EventEditForm({event, playoffs, losers, teams, events, results}) {
 
             let isCombined = singleEvent.name === 'Softball' || singleEvent.name === 'Volleyball';
             let isHockey = singleEvent.name === 'Hokcey';
-            let isSplit = singleEvent.name === 'Pooping';
+            let isFootball = singleEvent.name === 'Football';
+            let isSpikeball = singleEvent.name === 'Spikeball';
             let i=0;
             singleEvent.results.forEach(result => {
               let fullPoints = singleEvent.fullPoints;
               resultstsArr[result-1][i++].push(singleEvent.name);
               switch(i){
                 case 1:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : (isHockey ? 6 : 10)) : 5;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : (isHockey ? 6 : (isFootball ? 6 : 10))) : (isSpikeball ? 4 : 5);
                   break;
                 case 2:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : 8) : 4;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 10 : (isFootball ? 6 : 8)) : (isSpikeball ? 4 : 4);
                   break;
                 case 3:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : 6) : 3;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : (isFootball ? 6 : 6)) : (isSpikeball ? 4 : 3);
                   break;
                 case 4:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : 5) : 2;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 7 : (isFootball ? 6 : 6)) : 2;
                   break;
                 case 5:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : (isHockey ? 7 : 3)) : 1;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : (isHockey ? 7 : (isFootball ? 6 : 3))) : 1;
                   break;
                 case 6:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : 3) : 1;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 5 : (isFootball ? 2 : 3)) : 1;
                   break;
                 case 7:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : 1) : 0;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : (isFootball ? 2 : 1)) : 0;
                   break;
                 case 8:
-                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : 1) : 0;
+                  pointsArr[result-1] += fullPoints ? (isCombined ? 2 : (isFootball ? 2 : 1)) : 0;
                   break;
                 default:
                   break;
